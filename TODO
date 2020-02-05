@@ -1,7 +1,5 @@
-TODO docs for builtins
-
-TODO pass Sink for errors
+TODO move all "texts" to resources(?)
 TODO builder for interpreter
-TODO ungod Interpreter
-TODO test external commands on both windows and linux. 'git' should do
-TODO move all "texts" somewhere
+TODO pass Sink for errors
+
+TODO docs for builtins
