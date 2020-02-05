@@ -1,6 +1,8 @@
 
 # Nesh
 
+[![Build Status](https://travis-ci.com/NeKp0T/SoftwareDevelopment.svg?branch=shell)](https://travis-ci.com/NeKp0T/SoftwareDevelopment)
+
 nesh is a shell that lacks almost every feature a worthy shell should have.
 
 Looks like a stripped down bash, tries to work accordingly but fails miserably.
