@@ -1,0 +1,7 @@
+TODO docs for builtins
+
+TODO pass Sink for errors
+TODO builder for interpreter
+TODO ungod Interpreter
+TODO test external commands on both windows and linux. 'git' should do
+TODO move all "texts" somewhere
