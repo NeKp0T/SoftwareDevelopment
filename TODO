@@ -3,3 +3,7 @@ TODO pass Sink for errors
 TODO docs for builtins
 TODO builder for interpreter
 TODO move all "texts" to resources(?)
+
+TODO Add an costumization of pipe creation () -> SourceSinkPair
+TODO Implement pipes that use Redirect.PIPE
+TODO move pipe closing methods to SourceSinkPair
