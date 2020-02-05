@@ -3,3 +3,5 @@ TODO pass Sink for errors
 TODO docs for builtins
 TODO builder for interpreter
 TODO move all "texts" to resources(?)
+TODO readme about builtins
+TODO make travis publish docs to wiki
