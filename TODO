@@ -1,5 +1,5 @@
-TODO move all "texts" to resources(?)
-TODO builder for interpreter
+TODO pass arguments to CommandFactory in some data class bundle
 TODO pass Sink for errors
-
 TODO docs for builtins
+TODO builder for interpreter
+TODO move all "texts" to resources(?)

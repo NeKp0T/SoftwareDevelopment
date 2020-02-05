@@ -40,7 +40,7 @@ To run tests use
 
 ```./gradlew test```
 
-Some tests rely in having git installed and available to run with simply `git`. 
+Some tests rely on having git installed and present in `PATH`. 
 
 Also some tests work only in unix-like systems. I tried my best to identify them and make them always pass on windows, 
 but probably there are some more.
