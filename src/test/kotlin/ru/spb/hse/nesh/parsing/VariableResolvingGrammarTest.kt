@@ -1,4 +1,4 @@
-package ru.spb.hse.nesh.parsing.parsing
+package ru.spb.hse.nesh.parsing
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import org.junit.jupiter.api.Test

@@ -1,4 +1,4 @@
-package ru.spb.hse.nesh.parsing.parsing
+package ru.spb.hse.nesh.parsing
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
