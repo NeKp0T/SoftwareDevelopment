@@ -31,6 +31,11 @@ class VariableResolvingGrammarTest {
     }
 
     @Test
+    fun `variable with a name "?"`() {
+        assertEquals("0", grammar.parseToEnd("\$?"))
+    }
+
+    @Test
     fun `dollar without variable`() {
         val s = " \$. \$_ \$ "
         assertEquals(s, grammar.parseToEnd(s))

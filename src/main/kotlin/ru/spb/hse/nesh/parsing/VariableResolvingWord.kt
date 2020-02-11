@@ -27,7 +27,7 @@ class VariableResolvingGrammar(env: Environment): Grammar<String>() {
     private val variableSigns = "$"
 
     private val dollar by token("[$variableSigns]")
-    private val variableText by token("[a-zA-Z][\\w]*")
+    private val variableText by token("[a-zA-Z0-9#?@\$][\\w]*")
     private val nonDollarText by token("[^$variableSigns]+")
 
     private val variableParser = -dollar * variableText map { env[it.text] }

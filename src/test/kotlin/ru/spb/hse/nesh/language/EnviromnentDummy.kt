@@ -9,4 +9,4 @@ class EnvironmentMapDummy(private val values: Map<String, String>):
     override fun getRedefinedVariables(): Map<String, String> = values
 }
 
-val dummyEnv = EnvironmentMapDummy(mapOf("x" to "x", "y" to "y", "x_x" to "x x", "x__x" to "x  x", "x_" to "x "))
+val dummyEnv = EnvironmentMapDummy(mapOf("x" to "x", "y" to "y", "x_x" to "x x", "x__x" to "x  x", "x_" to "x ", "?" to "0"))
