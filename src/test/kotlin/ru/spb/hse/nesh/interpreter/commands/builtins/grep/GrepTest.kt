@@ -6,6 +6,8 @@ import io.mockk.verifySequence
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import ru.spb.hse.nesh.interpreter.commands.io.StringSink
+import ru.spb.hse.nesh.interpreter.commands.io.StringSource
 import java.io.File
 import java.io.StringWriter
 import java.nio.file.Files
@@ -111,7 +113,7 @@ internal class GrepTest {
     }
 
     @Test
-    fun `grep from files prints filename and works correctly`() {
+    fun `grep from files prints filenames and works correctly`() {
         val lines = listOf("a", "b", "c")
         val grepper = Grepper("[ab]")
 
@@ -134,6 +136,43 @@ internal class GrepTest {
                     }
                 }
             }
+        }
+    }
+
+    @Test
+    fun `GrepCLI runs grep from source if no files provided`() {
+        val lines = listOf("a", "ba", "c")
+        val source = StringSource(joinToFileContent(lines))
+        val sink = StringSink()
+        GrepCLI(source, sink).mainReturningCode(listOf("a"))
+        assertEquals(joinToFileContent(lines.take(2)), sink.getOutput())
+    }
+
+    @Test
+    fun `GrepCLI runs grep from file`() {
+        val lines = listOf("a", "ba", "c")
+        usingTempFile(lines) { file ->
+            val sink = StringSink()
+            GrepCLI(StringSource(""), sink).mainReturningCode(listOf("a", file.absolutePath))
+            assertEquals(joinToFileContent(lines.take(2)), sink.getOutput())
+        }
+    }
+
+    @Test
+    fun `GrepCLI runs grep from files`() {
+        val lines = listOf("a", "b", "c")
+
+        val source = StringSource(joinToFileContent(lines))
+        val sink = StringSink()
+
+
+        usingTempFile(lines) { file ->
+            GrepCLI(source, sink).mainReturningCode(listOf("[ab]", file.absolutePath, file.absolutePath))
+            val results = sink.getOutput().split(System.lineSeparator()).dropLastWhile { it.isEmpty() }
+
+            assertTrue(results.first().contains(file.name))
+            assertEquals(lines.take(2), results.drop(1).take(2))
+            assertEquals(results.take(3), results.drop(3))
         }
     }
 

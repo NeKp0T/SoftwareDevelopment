@@ -41,10 +41,10 @@ class GrepCLI(private val source: Source, private val sink: Sink) : CliktCommand
 
     override fun run() {
         val writer = sink.getSinkStream().bufferedWriter()
-        if (files.isEmpty()) {
-            grepper.grep(source.getSourceStream().bufferedReader(), writer)
-        } else {
-            grepper.grep(writer, files)
+        when(files.size) {
+            0    -> grepper.grep(source.getSourceStream().bufferedReader(), writer)
+            1    -> grepper.grep(writer, files.first())
+            else -> grepper.grep(writer, files)
         }
         writer.flush()
     }
