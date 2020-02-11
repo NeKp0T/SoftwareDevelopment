@@ -6,6 +6,7 @@ import ru.spb.hse.nesh.interpreter.commands.builtins.BuiltinCommandFactory
 import ru.spb.hse.nesh.interpreter.commands.CommandFactory
 import ru.spb.hse.nesh.interpreter.commands.ExternalCommandFactory
 import ru.spb.hse.nesh.interpreter.commands.FirstAcceptedFactory
+import ru.spb.hse.nesh.interpreter.commands.builtins.grep.GrepFactory
 import ru.spb.hse.nesh.interpreter.commands.io.*
 import ru.spb.hse.nesh.interpreter.implementations.SerrLogger
 import ru.spb.hse.nesh.interpreter.implementations.SystemBasedEnvironment
@@ -19,7 +20,7 @@ import java.io.IOException
 
 class Interpreter(
     val env: Environment = SystemBasedEnvironment(),
-    private val commandFactory: CommandFactory = FirstAcceptedFactory(BuiltinCommandFactory, ExternalCommandFactory),
+    private val commandFactory: CommandFactory = FirstAcceptedFactory(BuiltinCommandFactory, GrepFactory, ExternalCommandFactory),
     private val input: Source = ShellInputSource,
     private val output: Sink = ShellOutputSink,
     private val logger: ProblemLogger = SerrLogger()
