@@ -18,6 +18,19 @@ import java.io.Closeable
 import java.io.File
 import java.io.IOException
 
+/**
+ * An instance of nesh interpreter.
+ *
+ * Interpreter is capable of running nesh commands and allows access to it's environment.
+ *
+ * One process can have multiple interpreters. However if they use the same input, it might lead to weird consequences.
+ *
+ * @param env               environment to store environment variables.
+ * @param commandFactory    used to create commands for interpretation.
+ * @param input             input source for the first command in a piped chain of commands.
+ * @param output            where to put output of the last command in a piped chain of commands.
+ * @param logger            used to log errors that happen in [Interpreter] itself.
+ */
 class Interpreter(
     val env: Environment = SystemBasedEnvironment(),
     private val commandFactory: CommandFactory = FirstAcceptedFactory(BuiltinCommandFactory, GrepFactory, ExternalCommandFactory),
@@ -28,6 +41,9 @@ class Interpreter(
 
     private val grammar = NeshGrammar(env)
 
+    /**
+     * Executes [line] as a nesh expression.
+     */
     fun interpret(line: String) {
         var expression: Expression? = null
         try {
@@ -42,12 +58,15 @@ class Interpreter(
         }
     }
 
+    /** Returns [variable] from [env]. */
     fun getEnvVariable(variable: String): String = env[variable]
 
+    /** Executes assignment expression. */
     override fun assign(assignment: AssignmentExpr) {
         env[assignment.variable] = assignment.value
     }
 
+    /** Executes [pipedExpression] (tries at least). */
     override fun execute(pipedExpression: PipedExpression) {
 
         // don't close input or output of interpreter on accident

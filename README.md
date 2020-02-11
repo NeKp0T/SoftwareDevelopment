@@ -21,7 +21,7 @@ Present features are:
 * supports double and single quotes that work like in bash!
     * and no other ways of escaping characters
 * has a variety of builtins (like, 5 of them)
-* supports interactive programs
+* ~~supports interactive programs~~ partially supports interactive programs?
     * no way of sending them Ctrl+D without closing nesh though
 
 ## Usage
