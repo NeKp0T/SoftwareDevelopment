@@ -1,8 +1,14 @@
 package ru.spb.hse.nesh.interpreter.commands.builtins.grep
 
-import org.junit.jupiter.api.Assertions.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verifySequence
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import java.io.File
 import java.io.StringWriter
+import java.nio.file.Files
 
 internal class GrepTest {
 
@@ -13,7 +19,7 @@ internal class GrepTest {
             writer
         )
         assertEquals(
-            correct.joinToString(System.lineSeparator(), postfix = System.lineSeparator()),
+            joinToFileContent(correct),
             writer.toString()
         )
     }
@@ -81,4 +87,63 @@ internal class GrepTest {
         val lines = listOf("a", "qwe", "a", "bbb", "lll")
         assertPrintsThis(Grepper("a", afterContext = 2), lines, lines)
     }
+
+    @Test
+    fun `grep from single file works`() {
+        val lines = listOf("a", "b", "c")
+        val grepper = Grepper("[ab]")
+
+        val calls = mutableListOf<String>()
+        val writer = mockk<StringWriter>()
+        every { writer.append(capture(calls)) } answers { writer }
+
+        usingTempFile(lines) { file ->
+            grepper.grep(writer, file)
+
+            verifySequence {
+                // can't use appendln(string) because it is an extension function that does chained method calls
+                lines.take(2).forEach { line ->
+                    writer.append(line)
+                    writer.appendln()
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `grep from files prints filename and works correctly`() {
+        val lines = listOf("a", "b", "c")
+        val grepper = Grepper("[ab]")
+
+        val writer = mockk<StringWriter>()
+        every { writer.append(any<String>()) } answers { writer }
+
+        usingTempFile(lines) { file ->
+            grepper.grep(writer, listOf(file, file))
+
+            verifySequence {
+                repeat(2) {
+                    // can't use appendln(string) because it is an extension function that does chained method calls
+                    writer.append(match { line: String ->
+                        line.contains(file.name)
+                    })
+                    writer.appendln()
+                    lines.take(2).forEach { line ->
+                        writer.append(line)
+                        writer.appendln()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun usingTempFile(lines: List<String>, block: (File) -> Unit) {
+        Files.createTempFile("test_grep", "suffix").toFile().apply{
+            deleteOnExit()
+            writeText(joinToFileContent(lines))
+            block(this)
+        }
+    }
+
+    private fun joinToFileContent(lines: List<String>) = lines.joinToString(System.lineSeparator(), postfix = System.lineSeparator())
 }

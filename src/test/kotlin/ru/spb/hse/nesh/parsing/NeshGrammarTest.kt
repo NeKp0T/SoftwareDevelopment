@@ -3,11 +3,7 @@ package ru.spb.hse.nesh.parsing
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import ru.spb.hse.nesh.parsing.AssignmentExpr
-import ru.spb.hse.nesh.parsing.NeshGrammar
-import ru.spb.hse.nesh.parsing.PipedExpression
 import ru.spb.hse.nesh.language.dummyEnv
-import ru.spb.hse.nesh.parsing.CommandExpr
 
 class NeshGrammarTest {
     private val grammar = NeshGrammar(dummyEnv)
