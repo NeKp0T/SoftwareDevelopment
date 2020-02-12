@@ -72,7 +72,7 @@ internal class ExternalCommandFactoryTest {
         env[ExternalCommandFactory.PWD_VARIABLE] = System.getProperty("user.home")
 
         val output = getOutput("", "pwd", env = env)
-        assertEquals(env[ExternalCommandFactory.PWD_VARIABLE] + "\n", output)
+        assertEquals(env[ExternalCommandFactory.PWD_VARIABLE] + System.lineSeparator(), output)
     }
 
     private fun newTempFile(): File = File.createTempFile("test", "aaaa").apply { deleteOnExit() }

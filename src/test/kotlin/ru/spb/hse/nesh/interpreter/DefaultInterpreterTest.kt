@@ -25,7 +25,7 @@ internal class DefaultInterpreterTest {
     fun `runs echo`() {
         val echoed = "qweewq"
         defaultInterpreter.interpret("echo '$echoed'")
-        assertEquals(echoed + '\n', getOutput())
+        assertEquals(echoed + System.lineSeparator(), getOutput())
     }
 
     @Test
