@@ -1,7 +1,13 @@
 
 # Nesh
 
+Linux build:
+
 [![Build Status](https://travis-ci.com/NeKp0T/SoftwareDevelopment.svg?branch=shell)](https://travis-ci.com/NeKp0T/SoftwareDevelopment)
+
+Windows build:
+
+[![Build status](https://ci.appveyor.com/api/projects/status/chrxlvoewfo1figf?svg=true)](https://ci.appveyor.com/project/NeKp0T/softwaredevelopment)
 
 nesh is a shell that lacks almost every feature a worthy shell should have.
 
