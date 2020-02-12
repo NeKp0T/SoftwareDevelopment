@@ -8,7 +8,7 @@ install:
   - cmd: java -version
 
 build_script:
-  - gradlew.sh build
+  - gradlew.bat build
 
 test_script:
-  - gradlew.sh test
+  - gradlew.bat test
