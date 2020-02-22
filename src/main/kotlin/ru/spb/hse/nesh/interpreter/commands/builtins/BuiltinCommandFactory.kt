@@ -28,6 +28,8 @@ object BuiltinCommandFactory : AbstractCommandFactory() {
         "wc" -> WordCount(input, output, arguments)
         "pwd" -> Pwd(output, env)
         "exit" -> Exit(env, arguments, output)
+        "ls" -> Ls(output, arguments, env)
+        "cd" -> Cd(arguments, env)
         else -> null
     }
 }
