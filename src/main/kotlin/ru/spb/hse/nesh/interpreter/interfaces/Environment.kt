@@ -7,4 +7,6 @@ interface Environment {
     /** Sets [variable] to [value] */
     operator fun set(variable: String, value: String)
     fun getRedefinedVariables(): Map<String, String>
+
+    fun pwdVariable(): String = "PWD"
 }

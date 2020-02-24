@@ -2,6 +2,7 @@ package ru.spb.hse.nesh.interpreter.commands.builtins
 
 import ru.spb.hse.nesh.interpreter.commands.io.Sink
 import ru.spb.hse.nesh.interpreter.commands.io.Source
+import ru.spb.hse.nesh.interpreter.interfaces.Environment
 import java.io.IOException
 import java.io.InputStream
 import java.lang.Exception
@@ -9,8 +10,9 @@ import java.lang.Exception
 class WordCount(
     input: Source,
     output: Sink,
-    arguments: List<String>
-) : FileIteratingBuiltin(input, output, arguments) {
+    arguments: List<String>,
+    env: Environment
+) : FileIteratingBuiltin(input, output, arguments, env) {
 
     private val outputWriter = output.getSinkStream().bufferedWriter()
 
