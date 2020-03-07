@@ -6,6 +6,11 @@ import ru.spb.hse.nesh.interpreter.commands.io.Sink
 import ru.spb.hse.nesh.interpreter.interfaces.Environment
 import java.io.IOException
 
+/**
+ * Prints current directory of shell.
+ *
+ * Actually prints an environmental variable [ru.spb.hse.nesh.interpreter.commands.ExternalCommandFactory.PWD_VARIABLE]
+ */
 class Pwd(private val output: Sink, private val environment: Environment) :
     Command {
     override fun runWait(): Int {

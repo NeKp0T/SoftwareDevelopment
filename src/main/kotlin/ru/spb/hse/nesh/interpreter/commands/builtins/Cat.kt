@@ -6,6 +6,13 @@ import java.io.IOException
 import java.io.InputStream
 
 // =^.^=
+/**
+ * Iterates through files from arguemnts and copies them to its output.
+ *
+ * If no arguments given, uses standart input instead.
+ *
+ * Skips files that can't read.
+ */
 class Cat(
     input: Source,
     output: Sink,

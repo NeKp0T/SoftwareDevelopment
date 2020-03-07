@@ -4,6 +4,9 @@ import ru.spb.hse.nesh.interpreter.commands.Command
 import java.io.IOException
 import java.io.OutputStream
 
+/**
+ * Prints arguments separated by spaces.
+ */
 class Echo(private val output: OutputStream, private val arguments: List<String>) :
     Command {
     override fun runWait(): Int = try {

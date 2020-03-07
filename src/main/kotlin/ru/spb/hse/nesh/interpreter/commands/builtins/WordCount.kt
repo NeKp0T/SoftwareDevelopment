@@ -6,6 +6,13 @@ import java.io.IOException
 import java.io.InputStream
 import java.lang.Exception
 
+/**
+ * Iterates through files given as arguments and prints number of newlines, words and bytes in each.
+ *
+ * If no arguments provided uses standart input instead.
+ *
+ * Skips files that can't read.
+ */
 class WordCount(
     input: Source,
     output: Sink,

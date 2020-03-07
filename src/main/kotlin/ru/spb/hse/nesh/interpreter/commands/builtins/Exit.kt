@@ -5,6 +5,11 @@ import ru.spb.hse.nesh.interpreter.commands.io.Sink
 import ru.spb.hse.nesh.interpreter.interfaces.Environment
 import java.io.IOException
 
+/**
+ * Exits nesh by setting variable [EXIT_VARIABLE].
+ *
+ * It's up to [ru.spb.hse.nesh.interpreter] to actually exit.
+ */
 class Exit(private val environment: Environment, args: List<String>, private val output: Sink) : Command {
     private val argumentsProvided = args.isNotEmpty()
 
