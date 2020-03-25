@@ -1,11 +1,13 @@
 package ru.spb.hse.nesh.interpreter.commands.builtins
 
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import ru.spb.hse.nesh.interpreter.commands.io.StringSink
 import ru.spb.hse.nesh.interpreter.commands.io.StringSource
+import ru.spb.hse.nesh.interpreter.interfaces.Environment
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -14,8 +16,9 @@ internal class WordCountTest {
     @ParameterizedTest
     @MethodSource("listsOfArguments")
     fun `wc counts from stdin correctly`(contents: String) {
+        val envMock = mockk<Environment>(relaxed = true)
         val sink = StringSink()
-        WordCount(StringSource(contents), sink, emptyList()).runWait()
+        WordCount(StringSource(contents), sink, emptyList(), envMock).runWait()
         assertEquals(correctAnswer(contents).expectedAnswer(), sink.getOutput())
     }
 

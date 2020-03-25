@@ -3,21 +3,25 @@ package ru.spb.hse.nesh.interpreter.commands.builtins
 import ru.spb.hse.nesh.interpreter.commands.Command
 import ru.spb.hse.nesh.interpreter.commands.io.Sink
 import ru.spb.hse.nesh.interpreter.commands.io.Source
+import ru.spb.hse.nesh.interpreter.interfaces.Environment
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
+import java.nio.file.Paths
 
 // lacks a better name
 abstract class FileIteratingBuiltin(
     private val input: Source,
     protected val output: Sink,
-    private val arguments: List<String>
+    private val arguments: List<String>,
+    private val environment: Environment
 ) :
     Command {
     override fun runWait(): Int {
         arguments.forEach { pathname ->
             try {
-                File(pathname).inputStream().use { dealWithInput(it) }
+                val pwd = Paths.get(environment[environment.pwdVariable()])
+                File(pwd.resolve(pathname).toString()).inputStream().use { dealWithInput(it) }
             } catch (ex: IOException) {
                 reportIOException(ex)
             } catch (ex: SecurityException) {

@@ -24,10 +24,12 @@ object BuiltinCommandFactory : AbstractCommandFactory() {
         env: Environment
     ): Command? = when (programName) {
         "echo" -> Echo(output.getSinkStream(), arguments)
-        "cat" -> Cat(input, output, arguments)
-        "wc" -> WordCount(input, output, arguments)
+        "cat" -> Cat(input, output, arguments, env)
+        "wc" -> WordCount(input, output, arguments, env)
         "pwd" -> Pwd(output, env)
         "exit" -> Exit(env, arguments, output)
+        "ls" -> Ls(output, arguments, env)
+        "cd" -> Cd(arguments, env)
         else -> null
     }
 }
