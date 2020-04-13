@@ -7,7 +7,7 @@ Linux build:
 
 Windows build:
 
-[![Build status](https://ci.appveyor.com/api/projects/status/chrxlvoewfo1figf?svg=true)](https://ci.appveyor.com/project/NeKp0T/softwaredevelopment)
+[![Build status](https://ci.appveyor.com/api/projects/status/chrxlvoewfoi1figf?svg=true)](https://ci.appveyor.com/project/NeKp0T/softwaredevelopment)
 
 nesh is a shell that lacks almost every feature a worthy shell should have.
 
