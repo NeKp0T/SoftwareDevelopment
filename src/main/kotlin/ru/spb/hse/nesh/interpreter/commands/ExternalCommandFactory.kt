@@ -70,8 +70,12 @@ class ExternalCommand(private val process: ProcessBuilder) : Command {
  * Always constructs a [Command], even if provided expression was empty
  */
 object ExternalCommandFactory : CommandFactory {
-    /** A name of variable that is used as current directory for external processes. */
-    const val PWD_VARIABLE: String = "PWD"
+    /** A name of variable that is used as current directory for external processes.
+     *
+     * Uses "cd" on windows and "PWD" on every other system.
+     * */
+    val PWD_VARIABLE: String
+        get() = if (System.getProperty("os.name").contains("win")) "cd" else "PWD"
 
     /**
      * Constructs a command that will try to run a program specified by first word of [expression]
