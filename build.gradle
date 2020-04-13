@@ -49,6 +49,8 @@ test {
     useJUnitPlatform()
     testLogging {
         events 'PASSED', 'FAILED', 'SKIPPED'
+        outputs.upToDateWhen {false}
+        showStandardStreams = true
     }
 }
 
