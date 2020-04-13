@@ -46,6 +46,11 @@ internal class DefaultInterpreterTest {
 
     @Test
     fun `pipe builtin | external command works`() {
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            // could not find anything that works on every windows system
+            return
+        }
+
         val value = "qweeee"
         defaultInterpreter.interpret("echo $value | more")
         val output = getOutput()
@@ -54,6 +59,11 @@ internal class DefaultInterpreterTest {
 
     @Test
     fun `builtin | external command | builtin works`() {
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            // could not find anything that works on every windows system
+            return
+        }
+
         val value = "qweeee"
         defaultInterpreter.interpret("echo $value | more | cat")
         val output = getOutput()

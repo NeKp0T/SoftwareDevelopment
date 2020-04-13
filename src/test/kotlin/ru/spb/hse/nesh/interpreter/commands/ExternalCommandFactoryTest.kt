@@ -42,6 +42,11 @@ internal class ExternalCommandFactoryTest {
 
     @Test
     fun `provides stdin to commands`() {
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            // could not find anything that works on every windows system
+            return
+        }
+
         val env = LocalEnvironment()
         env[ExternalCommandFactory.PWD_VARIABLE] = System.getProperty("user.home")
 
@@ -68,6 +73,11 @@ internal class ExternalCommandFactoryTest {
 
     @Test
     fun `commands run in $PWD`() {
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            // could not find anything that works on every windows system
+            return
+        }
+
         val env = LocalEnvironment()
         env[ExternalCommandFactory.PWD_VARIABLE] = System.getProperty("user.home")
 
