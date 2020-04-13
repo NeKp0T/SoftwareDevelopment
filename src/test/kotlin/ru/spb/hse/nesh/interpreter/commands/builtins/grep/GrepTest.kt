@@ -104,6 +104,7 @@ internal class GrepTest {
 
             verifySequence {
                 // can't use appendln(string) because it is an extension function that does chained method calls
+                // and it is handled poorly by mockito
                 lines.take(2).forEach { line ->
                     writer.append(line)
                     writer.appendln()

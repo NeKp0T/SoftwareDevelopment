@@ -36,7 +36,7 @@ class GrepCLI(private val source: Source, private val sink: Sink) : CliktCommand
     private val wholeWord: Boolean by option("--word-regexp", "-w", help = WHOLE_WORD_HELP).flag()
     private val afterContext: Int by option("--after-context", "-A", metavar = "NUM", help = AFTER_CONTEXT_HELP).int().default(0)
 
-    private val grepper: Grepper by argument("PATTERN").convert { Grepper(it, ignoreCase, wholeWord, afterContext) }
+    private val grepper: Grepper by argument("PATTERN").convert { Grepper(it, wholeWord, ignoreCase, afterContext) }
     private val files: List<File> by argument("FILE").file().multiple()
 
     override fun run() {
