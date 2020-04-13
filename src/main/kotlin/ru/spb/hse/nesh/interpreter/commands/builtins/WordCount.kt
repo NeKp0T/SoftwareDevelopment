@@ -12,6 +12,8 @@ import java.lang.Exception
  * If no arguments provided uses standart input instead.
  *
  * Skips files that can't read.
+ *
+ * Assumes line separator is suffix-free.
  */
 class WordCount(
     input: Source,
@@ -26,6 +28,7 @@ class WordCount(
         var wordCount = 0
         var byteCount = 0
         var lastWasWord = false
+        var delimPrefix = 0
 
         try {
             val buffer = ByteArray(bufferSize)
@@ -35,9 +38,15 @@ class WordCount(
 
                 byteCount += readSize
 
-                newlineCount += read.count { it == '\n'.toByte() }
-
                 for (char in read.map(Byte::toChar)) {
+                    if (char == System.lineSeparator()[delimPrefix]) {
+                        delimPrefix += 1
+                        if (delimPrefix == System.lineSeparator().length) {
+                            delimPrefix = 0
+                            newlineCount += 1
+                        }
+                    }
+
                     if (!lastWasWord && !char.isWhitespace())
                         wordCount++
                     lastWasWord = !char.isWhitespace()
