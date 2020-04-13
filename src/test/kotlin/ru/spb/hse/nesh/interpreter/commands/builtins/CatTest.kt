@@ -34,7 +34,7 @@ internal class CatTest {
 
     @Test
     fun `cats multiple files`() {
-        val inputStrings = (1 .. 10).map { "string №$it" }
+        val inputStrings = (1 .. 10).map { "string $it" }
         val inputFiles = inputStrings.map { string ->
             Files.createTempFile("test_cat", "suffix").toFile().also { it.writeText(string) }
         }
