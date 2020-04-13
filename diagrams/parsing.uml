@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ru.spb.hse.nesh.parsing</OriginalElement>
+  <nodes>
+    <node x="48.5" y="81.0">ru.spb.hse.nesh.parsing.VariableResolvingWord</node>
+    <node x="286.5" y="0.0">ru.spb.hse.nesh.parsing.WordType</node>
+    <node x="517.0" y="567.0">ru.spb.hse.nesh.parsing.parsing</node>
+    <node x="288.0" y="319.0">ru.spb.hse.nesh.parsing.AssignmentExpr</node>
+    <node x="143.0" y="162.0">ru.spb.hse.nesh.parsing.DoubleQuotedWord</node>
+    <node x="0.0" y="331.0">ru.spb.hse.nesh.parsing.PipedExpression</node>
+    <node x="432.5" y="81.0">ru.spb.hse.nesh.parsing.SingleQuotedWord</node>
+    <node x="231.0" y="443.0">ru.spb.hse.nesh.parsing.NeshGrammar</node>
+    <node x="293.0" y="567.0">ru.spb.hse.nesh.parsing.CommandExpr</node>
+    <node x="0.0" y="162.0">ru.spb.hse.nesh.parsing.RegularWord</node>
+    <node x="0.0" y="443.0">ru.spb.hse.nesh.parsing.WordResolution</node>
+    <node x="0.0" y="567.0">ru.spb.hse.nesh.parsing.VariableResolvingGrammar</node>
+    <node x="262.5" y="81.0">ru.spb.hse.nesh.parsing.WhitespaceWord</node>
+    <node x="304.75" y="212.0">ru.spb.hse.nesh.parsing.Expression</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.spb.hse.nesh.parsing.RegularWord" target="ru.spb.hse.nesh.parsing.VariableResolvingWord">
+      <point x="0.0" y="-15.5" />
+      <point x="61.5" y="137.0" />
+      <point x="97.0" y="137.0" />
+      <point x="-48.5" y="15.5" />
+    </edge>
+    <edge source="ru.spb.hse.nesh.parsing.DoubleQuotedWord" target="ru.spb.hse.nesh.parsing.VariableResolvingWord">
+      <point x="0.0" y="-15.5" />
+      <point x="229.5" y="137.0" />
+      <point x="194.0" y="137.0" />
+      <point x="48.5" y="15.5" />
+    </edge>
+    <edge source="ru.spb.hse.nesh.parsing.WhitespaceWord" target="ru.spb.hse.nesh.parsing.WordType">
+      <point x="0.0" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="ru.spb.hse.nesh.parsing.SingleQuotedWord" target="ru.spb.hse.nesh.parsing.WordType">
+      <point x="0.0" y="-15.5" />
+      <point x="515.0" y="56.0" />
+      <point x="371.5" y="56.0" />
+      <point x="34.0" y="15.5" />
+    </edge>
+    <edge source="ru.spb.hse.nesh.parsing.VariableResolvingWord" target="ru.spb.hse.nesh.parsing.WordType">
+      <point x="0.0" y="-15.5" />
+      <point x="145.5" y="56.0" />
+      <point x="303.5" y="56.0" />
+      <point x="-34.0" y="15.5" />
+    </edge>
+    <edge source="ru.spb.hse.nesh.parsing.PipedExpression" target="ru.spb.hse.nesh.parsing.Expression">
+      <point x="0.0" y="-27.5" />
+      <point x="134.0" y="294.0" />
+      <point x="221.75" y="294.0" />
+      <point x="-27.0" y="15.5" />
+    </edge>
+    <edge source="ru.spb.hse.nesh.parsing.AssignmentExpr" target="ru.spb.hse.nesh.parsing.Expression">
+      <point x="0.0" y="-39.5" />
+      <point x="363.5" y="294.0" />
+      <point x="275.75" y="294.0" />
+      <point x="27.0" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="335.0" y="299.0" />
+  <SelectedNodes>
+    <node>ru.spb.hse.nesh.parsing.Expression</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
