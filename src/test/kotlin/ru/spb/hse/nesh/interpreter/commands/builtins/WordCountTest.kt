@@ -25,12 +25,12 @@ internal class WordCountTest {
         " space_in_front",
         "space_in_end ",
         "many_spaces_in_a   row",
-        "so\nmany\nlines\n!",
-        "long string\n".repeat(100)
+        "so\nmany\nlines\n!".replace("\n", System.lineSeparator()),
+        "long string${System.lineSeparator()}".repeat(100)
     )
 
     private fun correctAnswer(contents: String) = WordCountResult(
-        contents.count { it == '\n' },
+        System.lineSeparator().toRegex().findAll(contents).count(),
         contents.trim().split("\\s+".toRegex()).size,
         contents.length
     )
@@ -40,7 +40,7 @@ internal class WordCountTest {
         val wordCount: Int,
         val byteCount: Int
     ) {
-        fun expectedAnswer() = "$newlineCount $wordCount $byteCount\n"
+        fun expectedAnswer() = "$newlineCount $wordCount $byteCount" + System.lineSeparator()
     }
 }
 

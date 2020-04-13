@@ -19,7 +19,8 @@ class Exit(private val environment: Environment, args: List<String>, private val
                 output.getSinkStream().writer().appendln(TOO_MUCH_ARGUMENTS)
                 return 1
             } catch (ex: IOException) {
-                System.err.println("exit can't report problem ($TOO_MUCH_ARGUMENTS)\n$ex")
+                System.err.println("exit can't report problem ($TOO_MUCH_ARGUMENTS)")
+                System.err.println(ex)
             }
         }
         environment[EXIT_VARIABLE] = "exit"

@@ -10,7 +10,7 @@ internal class EchoTest {
         val sink = StringSink()
         val string = "qweqwe"
         Echo(sink.getSinkStream(), listOf(string)).runWait()
-        assertEquals(string + "\n", sink.getOutput())
+        assertEquals(string + System.lineSeparator(), sink.getOutput())
     }
 
     @Test
@@ -18,6 +18,6 @@ internal class EchoTest {
         val sink = StringSink()
         val strings = listOf("qweqwe", "eweq", "ew")
         Echo(sink.getSinkStream(), strings).runWait()
-        assertEquals(strings.joinToString(" ") + "\n", sink.getOutput())
+        assertEquals(strings.joinToString(" ") + System.lineSeparator(), sink.getOutput())
     }
 }

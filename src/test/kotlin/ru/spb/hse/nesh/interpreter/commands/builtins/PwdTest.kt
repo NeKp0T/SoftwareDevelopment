@@ -22,6 +22,6 @@ internal class PwdTest {
         Pwd(sink, envMock).runWait()
 
         verifySequence { envMock[ExternalCommandFactory.PWD_VARIABLE] }
-        assertEquals(pwdReturn + "\n", sink.getOutput())
+        assertEquals(pwdReturn + System.lineSeparator(), sink.getOutput())
     }
 }

@@ -63,7 +63,7 @@ internal class ExternalCommandFactoryTest {
         val varValue = "vevevvr"
         env[varName] = varValue
         val output = getOutput("echo \$x", "sh", env = env)
-        assertEquals(varValue + "\n", output)
+        assertEquals(varValue + System.lineSeparator(), output)
     }
 
     @Test
@@ -72,7 +72,7 @@ internal class ExternalCommandFactoryTest {
         env[ExternalCommandFactory.PWD_VARIABLE] = System.getProperty("user.home")
 
         val output = getOutput("", "pwd", env = env)
-        assertEquals(env[ExternalCommandFactory.PWD_VARIABLE] + "\n", output)
+        assertEquals(env[ExternalCommandFactory.PWD_VARIABLE] + System.lineSeparator(), output)
     }
 
     private fun newTempFile(): File = File.createTempFile("test", "aaaa").apply { deleteOnExit() }

@@ -4,7 +4,7 @@ import ru.spb.hse.nesh.interpreter.interfaces.ProblemLogger
 
 /** A [ProblemLogger] that simply attaches exception-cause to the message */
 abstract class ExceptionAttacherLogger : ProblemLogger {
-    override fun logProblem(message: String, cause: Throwable) = logProblem("message\n$cause")
+    override fun logProblem(message: String, cause: Throwable) = logProblem("message${System.lineSeparator()}$cause")
 }
 
 /** A [ProblemLogger] that prints all logs to [System.err] */
