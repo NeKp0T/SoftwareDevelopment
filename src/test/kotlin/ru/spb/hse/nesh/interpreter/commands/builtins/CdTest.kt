@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import ru.spb.hse.nesh.interpreter.commands.ExternalCommandFactory
 import ru.spb.hse.nesh.interpreter.commands.io.StringSink
+import ru.spb.hse.nesh.interpreter.commands.io.StringSource
 import ru.spb.hse.nesh.interpreter.implementations.SystemBasedEnvironment
 import java.nio.file.Files
 import java.nio.file.Path
@@ -19,6 +20,7 @@ internal class CdTest {
         val innerDir1 = Files.createDirectory(dir1.resolve("innerDir1"))
         val innerDir2 = Files.createDirectory(dir1.resolve("innerDir2"))
         val innerFile1 = Files.createFile(dir1.resolve("innerFile1"))
+        innerFile1.toFile().writeText("test text")
         return root
     }
 
@@ -60,9 +62,20 @@ internal class CdTest {
     @Test
     fun `cd fails when too many arguments are given`() {
         val env = SystemBasedEnvironment()
-        val testFS = createTestFS()
+        val testFS  = createTestFS()
         env.setPwd(testFS.resolve("dir1").toString())
         val res = Cd(listOf("a", "b", "c'"), env, PathExpand(env)).runWait()
         assertEquals(1, res)
+    }
+
+    @Test
+    fun `cd affects cat`() {
+        val env = SystemBasedEnvironment()
+        val testFS = createTestFS()
+        env.setPwd(testFS.toString())
+        Cd(listOf("dir1"), env, PathExpand(env)).runWait()
+        val outputSink = StringSink()
+        Cat(StringSource(""), outputSink, listOf("innerFile1"), env, PathExpand(env)).runWait()
+        assertEquals("test text", outputSink.getOutput())
     }
 }
