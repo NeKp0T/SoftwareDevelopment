@@ -27,13 +27,23 @@ internal class LsTest {
     }
 
     @Test
-    fun `ls prints content of pwd when no argument given`() {
+    fun `ls prints content of pwd when no argument is given`() {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
-        env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
+        env.setPwd(testFS.toString())
         val sink = StringSink()
         Ls(sink, listOf(), env, PathExpand(env)).runWait()
         assertEquals(setOf("dir1", "dir2", "file1", "file2"), sink.getOutput().split(" ").map{it.trim()}.toSet())
+    }
+
+    @Test
+    fun `ls fails when to many arguments are given`() {
+        val env = SystemBasedEnvironment()
+        val testFS = createTestFS()
+        env.setPwd(testFS.toString())
+        val sink = StringSink()
+        val res = Ls(sink, listOf("a", "b"), env, PathExpand(env)).runWait()
+        assertEquals(1, res)
     }
 
     @Test
@@ -49,7 +59,7 @@ internal class LsTest {
     fun `ls handles relative paths`() {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
-        env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
+        env.setPwd(testFS.toString())
         val sink = StringSink()
         Ls(sink, listOf("dir1"), env, PathExpand(env)).runWait()
         assertEquals(setOf("innerDir1", "innerDir2", "innerFile1"), sink.getOutput().split(" ").map{it.trim()}.toSet())
@@ -59,7 +69,7 @@ internal class LsTest {
     fun `ls does not throw when file is given and produces no output`() {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
-        env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
+        env.setPwd(testFS.toString())
         val sink = StringSink()
         assertDoesNotThrow{Ls(sink, listOf("file1"), env, PathExpand(env)).runWait()}
         assertEquals("", sink.getOutput())

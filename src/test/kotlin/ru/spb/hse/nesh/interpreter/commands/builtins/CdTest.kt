@@ -27,34 +27,42 @@ internal class CdTest {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
         Cd(listOf(testFS.toString()), env, PathExpand(env)).runWait()
-        assertEquals(testFS.toString(), env[ExternalCommandFactory.PWD_VARIABLE])
+        assertEquals(testFS.toString(), env.getPwd())
     }
 
     @Test
     fun `cd handles relative paths`() {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
-        env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
+        env.setPwd(testFS.toString())
         Cd(listOf("dir1"), env, PathExpand(env)).runWait()
-        assertEquals(testFS.resolve("dir1").toString(), env[ExternalCommandFactory.PWD_VARIABLE])
+        assertEquals(testFS.resolve("dir1").toString(), env.getPwd())
     }
 
     @Test
     fun `cd switches to HOME when no argument given`() {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
-        env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
+        env.setPwd(testFS.toString())
         Cd(listOf(), env, PathExpand(env)).runWait()
-        assertEquals(env["HOME"], env[ExternalCommandFactory.PWD_VARIABLE])
+        assertEquals(env.getHome(), env.getPwd())
     }
 
     @Test
     fun `cd switches to parent when dots is given`() {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
-        env[ExternalCommandFactory.PWD_VARIABLE] = testFS.resolve("dir1").toString()
+        env.setPwd(testFS.resolve("dir1").toString())
         Cd(listOf(".."), env, PathExpand(env)).runWait()
-        assertEquals(testFS.toString(), env[ExternalCommandFactory.PWD_VARIABLE])
+        assertEquals(testFS.toString(), env.getPwd())
     }
 
+    @Test
+    fun `cd fails when too many arguments are given`() {
+        val env = SystemBasedEnvironment()
+        val testFS = createTestFS()
+        env.setPwd(testFS.resolve("dir1").toString())
+        val res = Cd(listOf("a", "b", "c'"), env, PathExpand(env)).runWait()
+        assertEquals(1, res)
+    }
 }
