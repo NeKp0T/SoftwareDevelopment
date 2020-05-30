@@ -26,7 +26,7 @@ internal class CdTest {
     fun `cd handles absolute paths`() {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
-        Cd(listOf(testFS.toString()), env).runWait()
+        Cd(listOf(testFS.toString()), env, PathExpand(env)).runWait()
         assertEquals(testFS.toString(), env[ExternalCommandFactory.PWD_VARIABLE])
     }
 
@@ -35,7 +35,7 @@ internal class CdTest {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
         env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
-        Cd(listOf("dir1"), env).runWait()
+        Cd(listOf("dir1"), env, PathExpand(env)).runWait()
         assertEquals(testFS.resolve("dir1").toString(), env[ExternalCommandFactory.PWD_VARIABLE])
     }
 
@@ -44,7 +44,7 @@ internal class CdTest {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
         env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
-        Cd(listOf(), env).runWait()
+        Cd(listOf(), env, PathExpand(env)).runWait()
         assertEquals(env["HOME"], env[ExternalCommandFactory.PWD_VARIABLE])
     }
 
@@ -53,7 +53,7 @@ internal class CdTest {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
         env[ExternalCommandFactory.PWD_VARIABLE] = testFS.resolve("dir1").toString()
-        Cd(listOf(".."), env).runWait()
+        Cd(listOf(".."), env, PathExpand(env)).runWait()
         assertEquals(testFS.toString(), env[ExternalCommandFactory.PWD_VARIABLE])
     }
 

@@ -18,7 +18,7 @@ internal class WordCountTest {
     fun `wc counts from stdin correctly`(contents: String) {
         val envMock = mockk<Environment>(relaxed = true)
         val sink = StringSink()
-        WordCount(StringSource(contents), sink, emptyList(), envMock).runWait()
+        WordCount(StringSource(contents), sink, emptyList(), envMock, PathExpand(envMock)).runWait()
         assertEquals(correctAnswer(contents).expectedAnswer(), sink.getOutput())
     }
 

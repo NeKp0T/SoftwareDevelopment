@@ -11,8 +11,9 @@ class WordCount(
     input: Source,
     output: Sink,
     arguments: List<String>,
-    env: Environment
-) : FileIteratingBuiltin(input, output, arguments, env) {
+    env: Environment,
+    expand: PathExpand
+) : FileIteratingBuiltin(input, output, arguments, env, expand) {
 
     private val outputWriter = output.getSinkStream().bufferedWriter()
 

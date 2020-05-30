@@ -18,7 +18,7 @@ internal class CatTest {
         val envMock = mockk<Environment>(relaxed = true)
         val inputString = "abacaba test test test"
         val outputSink = StringSink()
-        Cat(StringSource(inputString), outputSink, emptyList(), envMock).runWait()
+        Cat(StringSource(inputString), outputSink, emptyList(), envMock, PathExpand(envMock)).runWait()
         assertEquals(inputString, outputSink.getOutput())
     }
 
@@ -30,7 +30,7 @@ internal class CatTest {
         inputFile.writeText(inputString)
 
         val outputSink = StringSink()
-        Cat(StringSource("stdin, should be ignored"), outputSink, listOf(inputFile.absolutePath), envMock).runWait()
+        Cat(StringSource("stdin, should be ignored"), outputSink, listOf(inputFile.absolutePath), envMock, PathExpand(envMock)).runWait()
         assertEquals(inputString, outputSink.getOutput())
 
         assertTrue(inputFile.delete(), "delete file, from which cat has read")
@@ -45,7 +45,7 @@ internal class CatTest {
         }
 
         val outputSink = StringSink()
-        Cat(StringSource("stdin, should be ignored"), outputSink, inputFiles.map(File::getAbsolutePath), envMock).runWait()
+        Cat(StringSource("stdin, should be ignored"), outputSink, inputFiles.map(File::getAbsolutePath), envMock, PathExpand(envMock)).runWait()
         assertEquals(inputStrings.joinToString(""), outputSink.getOutput())
 
         inputFiles.forEach {
@@ -61,7 +61,7 @@ internal class CatTest {
             if (Paths.get(nonExistantFilename).toFile().exists()) {
                 fail<Nothing>("What are the odds of a random file existing? Time to buy lottery tickets")
             }
-            Cat(StringSource(""), StringSink(), listOf(nonExistantFilename), envMock).runWait()
+            Cat(StringSource(""), StringSink(), listOf(nonExistantFilename), envMock, PathExpand(envMock)).runWait()
         }
     }
 }

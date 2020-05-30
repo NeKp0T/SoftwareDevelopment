@@ -2,6 +2,9 @@ package ru.spb.hse.nesh.interpreter.implementations
 
 import ru.spb.hse.nesh.interpreter.interfaces.Environment
 
+private const val PWD_NAME = "PWD"
+private const val HOME_NAME = "HOME"
+
 /**
  * An [Environment] that simply uses a [MutableMap] to store variables.
  *
@@ -20,4 +23,12 @@ class LocalEnvironment : Environment {
     }
 
     override fun getRedefinedVariables(): Map<String, String> = values
+
+    override fun getPwd() = get(PWD_NAME)
+
+    override fun setPwd(new: String) {
+        set(PWD_NAME, new)
+    }
+
+    override fun getHome() = get(HOME_NAME)
 }

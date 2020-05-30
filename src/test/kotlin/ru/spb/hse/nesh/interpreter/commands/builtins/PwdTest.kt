@@ -17,11 +17,11 @@ internal class PwdTest {
         val pwdReturn = "/well/lets/return/this"
         val sink = StringSink()
 
-        every { envMock[ExternalCommandFactory.PWD_VARIABLE] } returns pwdReturn
+        every { envMock.getPwd() } returns pwdReturn
 
         Pwd(sink, envMock).runWait()
 
-        verifySequence { envMock[ExternalCommandFactory.PWD_VARIABLE] }
+        verifySequence { envMock.getPwd() }
         assertEquals(pwdReturn + "\n", sink.getOutput())
     }
 }

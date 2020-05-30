@@ -11,7 +11,7 @@ class Pwd(private val output: Sink, private val environment: Environment) :
     override fun runWait(): Int {
         try {
             output.getSinkStream().writer().apply {
-                appendln(environment[ExternalCommandFactory.PWD_VARIABLE])
+                appendln(environment.getPwd())
                 flush()
             }
         } catch (ex: IOException) {

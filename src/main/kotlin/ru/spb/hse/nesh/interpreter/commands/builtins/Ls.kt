@@ -10,13 +10,15 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.streams.toList
 
-class Ls(private val output: Sink, private val arguments: List<String>, private val environment: Environment) :
+class Ls(private val output: Sink, private val arguments: List<String>, private val environment: Environment, private val expand: PathExpand) :
     Command {
     override fun runWait(): Int {
         try {
+            if (!checkNumberOfArguments()) {
+                System.err.println("wrong number of arguments")
+            }
             val dir = arguments.getOrElse(0) {""}
-            val pwd = Paths.get(environment[ExternalCommandFactory.PWD_VARIABLE])
-            val path = pwd.resolve(Paths.get(dir))
+            val path = Paths.get(expand.expand(dir))
             if (!Files.isDirectory(path)) {
                 System.err.println("$dir is not a directory")
                 return 1
@@ -34,5 +36,9 @@ class Ls(private val output: Sink, private val arguments: List<String>, private 
             return 1
         }
         return 0
+    }
+
+    private fun checkNumberOfArguments() : Boolean {
+        return arguments.size <= 1
     }
 }

@@ -32,7 +32,7 @@ internal class LsTest {
         val testFS = createTestFS()
         env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
         val sink = StringSink()
-        Ls(sink, listOf(), env).runWait()
+        Ls(sink, listOf(), env, PathExpand(env)).runWait()
         assertEquals(setOf("dir1", "dir2", "file1", "file2"), sink.getOutput().split(" ").map{it.trim()}.toSet())
     }
 
@@ -41,7 +41,7 @@ internal class LsTest {
         val env = SystemBasedEnvironment()
         val testFS = createTestFS()
         val sink = StringSink()
-        Ls(sink, listOf(testFS.toString()), env).runWait()
+        Ls(sink, listOf(testFS.toString()), env, PathExpand(env)).runWait()
         assertEquals(setOf("dir1", "dir2", "file1", "file2"), sink.getOutput().split(" ").map{it.trim()}.toSet())
     }
 
@@ -51,7 +51,7 @@ internal class LsTest {
         val testFS = createTestFS()
         env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
         val sink = StringSink()
-        Ls(sink, listOf("dir1"), env).runWait()
+        Ls(sink, listOf("dir1"), env, PathExpand(env)).runWait()
         assertEquals(setOf("innerDir1", "innerDir2", "innerFile1"), sink.getOutput().split(" ").map{it.trim()}.toSet())
     }
 
@@ -61,7 +61,7 @@ internal class LsTest {
         val testFS = createTestFS()
         env[ExternalCommandFactory.PWD_VARIABLE] = testFS.toString()
         val sink = StringSink()
-        assertDoesNotThrow{Ls(sink, listOf("file1"), env).runWait()}
+        assertDoesNotThrow{Ls(sink, listOf("file1"), env, PathExpand(env)).runWait()}
         assertEquals("", sink.getOutput())
     }
 

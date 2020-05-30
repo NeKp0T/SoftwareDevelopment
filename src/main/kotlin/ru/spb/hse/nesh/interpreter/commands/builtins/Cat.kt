@@ -11,8 +11,9 @@ class Cat(
     input: Source,
     output: Sink,
     arguments: List<String>,
-    env: Environment
-) : FileIteratingBuiltin(input, output, arguments, env) {
+    env: Environment,
+    expand: PathExpand
+) : FileIteratingBuiltin(input, output, arguments, env, expand) {
     override fun dealWithInput(inputStream: InputStream) {
         inputStream.copyTo(output.getSinkStream())
     }

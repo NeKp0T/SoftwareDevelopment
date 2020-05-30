@@ -2,6 +2,9 @@ package ru.spb.hse.nesh.interpreter.implementations
 
 import ru.spb.hse.nesh.interpreter.interfaces.Environment
 
+private const val PWD_NAME = "PWD"
+private const val HOME_NAME_NIX = "HOME"
+private const val HOME_NAME_WIN = "HOMEPATH"
 /**
  * Environment that searches system environment if it does not hold required variable.
  *
@@ -20,4 +23,20 @@ class SystemBasedEnvironment : Environment {
 
     /** Returns all variables that has been [set] for this environment */
     override fun getRedefinedVariables(): Map<String, String> = localEnv
+
+
+    override fun getPwd() = get(PWD_NAME)
+
+    override fun setPwd(new: String) {
+        set(PWD_NAME, new)
+    }
+
+    override fun getHome(): String {
+        val osName = System.getProperty("os.name").toLowerCase()
+        return if(osName.contains("win")) {
+            get(HOME_NAME_WIN)
+        } else {
+            get(HOME_NAME_NIX)
+        }
+    }
 }

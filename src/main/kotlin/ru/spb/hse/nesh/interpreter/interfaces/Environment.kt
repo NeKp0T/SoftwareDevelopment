@@ -8,5 +8,12 @@ interface Environment {
     operator fun set(variable: String, value: String)
     fun getRedefinedVariables(): Map<String, String>
 
-    fun pwdVariable(): String = "PWD"
+    /** Returns a current directory */
+    fun getPwd(): String
+
+    /** Sets a current directory */
+    fun setPwd(new: String)
+
+    /** Returns a home directory */
+    fun getHome(): String
 }

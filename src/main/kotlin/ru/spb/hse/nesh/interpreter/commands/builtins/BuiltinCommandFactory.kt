@@ -14,6 +14,8 @@ import ru.spb.hse.nesh.interpreter.interfaces.Environment
  * * `"wc"` - [WordCount]
  * * `"pwd"` - [Pwd]
  * * `"exit"` - [Exit]
+ * * `"cd"` - [Cd]
+ * * `"ls"` - [Ls]
  */
 object BuiltinCommandFactory : AbstractCommandFactory() {
     override fun createCommandByName(
@@ -24,12 +26,12 @@ object BuiltinCommandFactory : AbstractCommandFactory() {
         env: Environment
     ): Command? = when (programName) {
         "echo" -> Echo(output.getSinkStream(), arguments)
-        "cat" -> Cat(input, output, arguments, env)
-        "wc" -> WordCount(input, output, arguments, env)
+        "cat" -> Cat(input, output, arguments, env, PathExpand(env))
+        "wc" -> WordCount(input, output, arguments, env, PathExpand(env))
         "pwd" -> Pwd(output, env)
         "exit" -> Exit(env, arguments, output)
-        "ls" -> Ls(output, arguments, env)
-        "cd" -> Cd(arguments, env)
+        "ls" -> Ls(output, arguments, env, PathExpand(env))
+        "cd" -> Cd(arguments, env, PathExpand(env))
         else -> null
     }
 }

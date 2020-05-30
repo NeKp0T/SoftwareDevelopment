@@ -14,14 +14,14 @@ abstract class FileIteratingBuiltin(
     private val input: Source,
     protected val output: Sink,
     private val arguments: List<String>,
-    private val environment: Environment
+    private val environment: Environment,
+    private val expand: PathExpand
 ) :
     Command {
     override fun runWait(): Int {
         arguments.forEach { pathname ->
             try {
-                val pwd = Paths.get(environment[environment.pwdVariable()])
-                File(pwd.resolve(pathname).toString()).inputStream().use { dealWithInput(it) }
+                File(expand.expand(pathname)).inputStream().use { dealWithInput(it) }
             } catch (ex: IOException) {
                 reportIOException(ex)
             } catch (ex: SecurityException) {
