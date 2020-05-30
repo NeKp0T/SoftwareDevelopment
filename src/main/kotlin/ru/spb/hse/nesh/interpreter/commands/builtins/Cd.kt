@@ -10,7 +10,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 /**
- * Changes the current directory with the given one
+ * Changes the current directory with the given one, or changes it to the HOME (for *nix) or HOMEPATH (for windows)
  */
 class Cd(private val arguments: List<String>, private val environment: Environment, private val expand: PathExpand) :
     Command {

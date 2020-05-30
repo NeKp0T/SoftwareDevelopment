@@ -10,6 +10,10 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.streams.toList
 
+
+/**
+ * Prints all files (excluding hidden one) in the given directory or in current directory if no argument was given
+ */
 class Ls(private val output: Sink, private val arguments: List<String>, private val environment: Environment, private val expand: PathExpand) :
     Command {
     override fun runWait(): Int {
